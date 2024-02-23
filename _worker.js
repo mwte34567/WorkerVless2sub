@@ -14,6 +14,9 @@ let DLS = 4;//速度下限
 let addressescsv = [
 	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv' //iptest测速结果文件。
 ];
+let addressescsv2 = [
+	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv' //iptest测速结果文件。
+];
 
 let subconverter = "api.v1.mk"; //在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub
 let subconfig = "https://raw.githubusercontent.com/cmliu/edgetunnel/main/Clash/config/ACL4SSR_Online_Full_MultiMode.ini"; //订阅配置文件
@@ -150,6 +153,62 @@ async function getAddressescsv() {
 	}
 	
 	return newAddressescsv;
+}
+
+async function getAddressescsv2() {
+	if (!addressescsv2 || addressescsv2.length === 0) {
+		return [];
+	}
+	
+	let newAddressescsv2 = [];
+	
+	for (const csvUrl2 of addressescsv2) {
+		try {
+			const response = await fetch(csvUrl2);
+		
+			if (!response.ok) {
+				console.error('获取CSV地址时出错:', response.status, response.statusText);
+				continue;
+			}
+		
+			const text = await response.text();// 使用正确的字符编码解析文本内容
+			const lines = text.split('\n');
+		
+			// 检查CSV头部是否包含必需字段
+			//const header = lines[0].split(', ');
+			//const tlsIndex = header.indexOf('TLS');
+			//const speedIndex = header.length - 1; // 最后一个字段
+		
+			const ipAddressIndex = 0;// IP地址在 CSV 头部的位置
+			const portIndex = 1;// 端口在 CSV 头部的位置
+			const dataCenterIndex = portIndex + 1; // 数据中心是 TLS 的后一个字段
+		
+			//if (tlsIndex === -1) {
+			//	console.error('CSV文件缺少必需的字段');
+			//	continue;
+			//}
+		
+			// 从第二行开始遍历CSV行
+			for (let i = 0; i < lines.length; i++) {
+				const columns = lines[i].split(', ');
+		
+				// 检查TLS是否为"TRUE"且速度大于DLS
+				//if (parseFloat(columns[speedIndex]) > DLS) {
+					const ipAddress = columns[ipAddressIndex];
+					const port = 8443;
+					const dataCenter = columns[dataCenterIndex];
+			
+					const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
+					newAddressescsv2.push(formattedAddress);
+				//}
+			}
+		} catch (error) {
+			console.error('获取CSV地址时出错:', error);
+			continue;
+		}
+	}
+	
+	return newAddressescsv2;
 }
 
 let protocol;
@@ -316,8 +375,10 @@ export default {
 			
 			const newAddressesapi = await getAddressesapi();
 			const newAddressescsv = await getAddressescsv();
+			const newAddressescsv2 = await getAddressescsv2();
 			addresses = addresses.concat(newAddressesapi);
 			addresses = addresses.concat(newAddressescsv);
+			addresses = addresses.concat(newAddressescsv2);
 			
 			// 使用Set对象去重
 			const uniqueAddresses = [...new Set(addresses)];
