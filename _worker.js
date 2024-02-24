@@ -213,7 +213,8 @@ async function getAddressescsv2() {
 
 let protocol;
 export default {
-	async fetch (request) {
+	async fetch (request, env, ctx) {
+		addressesapi = env.ADDRESSESAPI || addressesapi;
 		const userAgentHeader = request.headers.get('User-Agent');
 		const userAgent = userAgentHeader ? userAgentHeader.toLowerCase() : "null";
 		const url = new URL(request.url);
