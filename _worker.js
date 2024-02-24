@@ -9,7 +9,7 @@ let addresses = [
 let addressesapi = [
 	'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt' //可参考内容格式 自行搭建。
 ];
-
+addressesapi = env.ADDRESSESAPI || addressesapi;
 let DLS = 4;//速度下限
 let addressescsv = [
 	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv' //iptest测速结果文件。
@@ -213,8 +213,7 @@ async function getAddressescsv2() {
 
 let protocol;
 export default {
-	async fetch (request, env, ctx) {
-		addressesapi = env.ADDRESSESAPI || addressesapi;
+	async fetch (request) {
 		const userAgentHeader = request.headers.get('User-Agent');
 		const userAgent = userAgentHeader ? userAgentHeader.toLowerCase() : "null";
 		const url = new URL(request.url);
