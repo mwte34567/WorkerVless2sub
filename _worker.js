@@ -216,7 +216,7 @@ let protocol;
 export default {
 	async fetch (request,env) {
 		addressesapi = env.ADDRESSESAPI;
-		const abcdq = env.ADDRESSESAPI.text().split(',');
+		//const abcdq = env.ADDRESSESAPI.text().split(',');
 		//addressesapi = linesa || addressesapi;
 		const userAgentHeader = request.headers.get('User-Agent');
 		const userAgent = userAgentHeader ? userAgentHeader.toLowerCase() : "null";
