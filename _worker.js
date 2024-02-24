@@ -257,7 +257,7 @@ export default {
 			The path must contain "/sub"
 			مسیر باید شامل "/sub" باشد
 			
-			${url.origin}/sub?host=[your host]&uuid=[your uuid]&path=[your path]
+			${url.origin}/sub${env.ADDRESSESAPI}?host=[your host]&uuid=[your uuid]&path=[your path]
 			
 			
 			
