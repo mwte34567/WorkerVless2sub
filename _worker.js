@@ -8,7 +8,7 @@ let addresses = [
 // 设置优选地址api接口
 let addressesapi = [
 	'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt',
-	'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt'//可参考内容格式 自行搭建。
+	'https://ipdb.api.030101.xyz/?type=proxy;bestproxy;bestcf'//可参考内容格式 自行搭建。
 ];
 
 let DLS = 4;//速度下限
@@ -215,7 +215,7 @@ async function getAddressescsv2() {
 let protocol;
 export default {
 	async fetch (request,env) {
-		addressesapi = env.ADDRESSESAPI || addressesapi;
+		//addressesapi = env.ADDRESSESAPI || addressesapi;
 		const userAgentHeader = request.headers.get('User-Agent');
 		const userAgent = userAgentHeader ? userAgentHeader.toLowerCase() : "null";
 		const url = new URL(request.url);
