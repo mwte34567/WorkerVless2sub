@@ -7,10 +7,10 @@ let addresses = [
 
 // 设置优选地址api接口
 let addressesapi = [
-	'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt',
-	'https://ipdb.api.030101.xyz/?type=proxy;bestproxy;bestcf'//可参考内容格式 自行搭建。
+	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt',
+	//'https://ipdb.api.030101.xyz/?type=proxy;bestproxy;bestcf'//可参考内容格式 自行搭建。
 ];
-let addressesapia = '';
+let addressesapia = '';//环境变量赋值
 let DLS = 4;//速度下限
 let addressescsv = [
 	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv' //iptest测速结果文件。
