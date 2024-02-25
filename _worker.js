@@ -459,6 +459,7 @@ export default {
 			const response = new Response(base64Response, {
 			headers: { 'content-type': 'text/plain' },
 			});
+			await sendMessage("#获取订阅", request.headers.get('CF-Connecting-IP'), `UA: ${userAgent}</tg-spoiler>\n域名: ${url.hostname}\n<tg-spoiler>入口: ${url.pathname + url.search}</tg-spoiler>`);
 
 			return response;
 		}
