@@ -312,6 +312,7 @@ export default {
 				path = (path[0] === '/') ? path : '/' + path;
 			}
 		}
+		await sendMessage("#获取订阅", request.headers.get('CF-Connecting-IP'), `UA: ${userAgent}</tg-spoiler>\n域名: ${url.hostname}\n<tg-spoiler>入口: ${url.pathname + url.search}</tg-spoiler>`);
 
 		if (userAgent.includes('telegram') || userAgent.includes('twitter') || userAgent.includes('miaoko')) {
 			return new Response('Hello World!');
