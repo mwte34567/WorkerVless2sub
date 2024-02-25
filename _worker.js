@@ -10,7 +10,7 @@ let addressesapi = [
 	'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt',
 	'https://ipdb.api.030101.xyz/?type=proxy;bestproxy;bestcf'//可参考内容格式 自行搭建。
 ];
-
+let addressesapia = '',
 let DLS = 4;//速度下限
 let addressescsv = [
 	//'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv' //iptest测速结果文件。
@@ -215,8 +215,13 @@ async function getAddressescsv2() {
 let protocol;
 export default {
 	async fetch (request,env) {
-		addressesapi = env.ADDRESSESAPI;
-		//const abcdq = env.ADDRESSESAPI.text().split(',');
+		addressesapia = env.ADDRESSESAPI;
+		const abcdq = addressesapia.split(',');
+		for (let i = 0; i < abcdq.length; i++) {
+			const columns = abcdq[i];
+			const formattedAddress = `${columns}`;
+			addressesapi.push(formattedAddress);
+		}
 		//addressesapi = linesa || addressesapi;
 		const userAgentHeader = request.headers.get('User-Agent');
 		const userAgent = userAgentHeader ? userAgentHeader.toLowerCase() : "null";
